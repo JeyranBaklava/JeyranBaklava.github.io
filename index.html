@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منوی جیران | Jeyran Baklava</title>
+    <!-- فونت فارسی -->
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -15,6 +16,20 @@
             --gold: #d4af37;
             --gold-glow: rgba(212, 175, 55, 0.3);
             --font-main: 'Vazirmatn', sans-serif;
+            --header-bg: rgba(10, 8, 6, 0.7);
+            --shadow-color: rgba(0,0,0,0.8);
+            --back-to-top-bg: #14110e;
+        }
+
+        /* حالت روز (Light Mode) */
+        .light-mode {
+            --bg-body: #f4efe9;
+            --bg-card: #fffcf8;
+            --text-main: #2c2520;
+            --text-muted: #6b5e53;
+            --header-bg: rgba(244, 239, 233, 0.8);
+            --shadow-color: rgba(0,0,0,0.1);
+            --back-to-top-bg: #fffcf8;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -27,24 +42,64 @@
             display: flex;
             justify-content: center;
             padding: 20px;
-            background-image: 
-                radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 85% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
-                linear-gradient(180deg, #0a0806 0%, #1a1410 100%);
+            /* بافت طلایی */
+            background-image: radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 40%);
             background-attachment: fixed;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        /* دکمه تغییر حالت شب/روز */
+        .theme-switch-wrapper {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+        .theme-switch {
+            background: var(--bg-card);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            transition: all 0.3s ease;
+        }
+        .theme-switch:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px var(--gold-glow);
         }
 
         .app-container {
             width: 100%;
             max-width: 600px;
             margin: 20px auto;
+            position: relative;
+        }
+
+        /* هدر شیشه‌ای (Idea 9) */
+        .header-wrapper {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding-top: 10px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background: var(--header-bg);
+            transition: background 0.5s ease;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
         }
 
         .brand-header {
             text-align: center;
-            margin-bottom: 40px;
             position: relative;
-            padding-bottom: 20px;
         }
         .brand-header h1 {
             font-size: 3.5rem;
@@ -52,12 +107,13 @@
             letter-spacing: 5px;
             font-weight: 300;
             text-shadow: 0 0 30px var(--gold-glow);
+            transition: color 0.5s ease;
         }
         .brand-header p {
             color: var(--text-muted);
             font-size: 0.9rem;
             letter-spacing: 3px;
-            text-transform: uppercase;
+            transition: color 0.5s ease;
         }
         .brand-header::after {
             content: '';
@@ -65,7 +121,7 @@
             height: 2px;
             background: var(--gold);
             position: absolute;
-            bottom: 0;
+            bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
             box-shadow: 0 0 10px var(--gold-glow);
@@ -75,36 +131,42 @@
             background: var(--bg-card);
             padding: 40px 30px;
             border-radius: 25px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            box-shadow: 0 20px 60px var(--shadow-color);
             border: 1px solid rgba(212, 175, 55, 0.1);
             position: relative;
             overflow: hidden;
+            transition: background 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        /* پارالاکس/درخشش پس‌زمینه (Idea 5) */
+        .background-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 1.5s ease, transform 1.5s ease;
+            z-index: 0;
+        }
+        .background-glow.active {
+            opacity: 1;
+            transform: translateY(50px);
         }
 
         .category-section {
+            position: relative;
+            z-index: 1;
             margin-bottom: 50px;
             opacity: 1;
             transform: translateY(0);
-            /* بهینه‌سازی برای اسکرول روان */
-            will-change: opacity, transform;
-            transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                        transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-        .category-section:last-child {
-            margin-bottom: 0;
-        }
-
-        /* حالت محو شدن با نرمی بسیار بالا */
-        .category-section.fade-out {
-            opacity: 0;
-            transform: translateY(25px);
-            pointer-events: none;
-        }
-
-        .category-section.fade-in {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .category-section:last-child { margin-bottom: 0; }
+        .category-section.fade-out { opacity: 0; transform: translateY(25px); pointer-events: none; }
+        .category-section.fade-in { opacity: 1; transform: translateY(0); }
 
         .category-title {
             font-size: 2rem;
@@ -117,11 +179,7 @@
             gap: 15px;
             font-weight: 400;
         }
-        .category-title i {
-            font-size: 1.8rem;
-            color: var(--gold);
-            text-shadow: 0 0 15px var(--gold-glow);
-        }
+        .category-title i { font-size: 1.8rem; }
 
         .menu-item {
             display: flex;
@@ -130,7 +188,18 @@
             padding: 14px 5px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
             transition: all 0.3s ease;
+            cursor: pointer;
         }
+        .light-mode .menu-item { border-bottom-color: rgba(0, 0, 0, 0.05); }
+
+        /* افکت لمس (Idea 2) */
+        .menu-item:active, .menu-item.clicked {
+            transform: scale(0.98);
+            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.15), transparent 70%);
+            border-radius: 12px;
+            transition: transform 0.1s ease, background 0.1s ease;
+        }
+
         .menu-item:hover {
             background: rgba(212, 175, 55, 0.08);
             border-radius: 12px;
@@ -138,15 +207,8 @@
             padding-right: 15px;
         }
 
-        .item-info {
-            display: flex;
-            flex-direction: column;
-            max-width: 70%;
-        }
-        .item-name {
-            font-size: 1.15rem;
-            font-weight: 500;
-        }
+        .item-info { display: flex; flex-direction: column; max-width: 70%; }
+        .item-name { font-size: 1.15rem; font-weight: 500; }
 
         .price-tag {
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
@@ -157,8 +219,10 @@
             font-size: 1rem;
             border: 1px solid rgba(212, 175, 55, 0.15);
             backdrop-filter: blur(4px);
+            white-space: nowrap;
         }
 
+        /* لودینگ با لوگو (Idea 8) */
         #loading-container {
             display: flex;
             flex-direction: column;
@@ -167,15 +231,17 @@
             padding: 80px 0;
             gap: 20px;
         }
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(212, 175, 55, 0.1);
-            border-top: 3px solid var(--gold);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+        .logo-loader {
+            font-size: 2.5rem;
+            color: var(--gold);
+            font-weight: 300;
+            letter-spacing: 5px;
+            animation: shimmer 1.5s ease-in-out infinite alternate;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes shimmer {
+            0% { text-shadow: 0 0 5px rgba(212, 175, 55, 0.2); opacity: 0.7; }
+            100% { text-shadow: 0 0 30px var(--gold-glow), 0 0 60px var(--gold-glow); opacity: 1; }
+        }
 
         .footer-note {
             text-align: center;
@@ -185,7 +251,11 @@
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             padding-top: 25px;
             line-height: 2;
+            position: relative;
+            z-index: 1;
+            transition: color 0.5s ease;
         }
+        .light-mode .footer-note { border-top-color: rgba(0, 0, 0, 0.05); }
         
         .footer-note a {
             color: var(--gold);
@@ -194,34 +264,81 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin: 0 10px;
         }
-        .footer-note a:hover {
-            color: #fff;
+        .footer-note a:hover { color: #fff; }
+        .light-mode .footer-note a:hover { color: #000; }
+
+        /* دکمه بازگشت به بالا (Idea 10) */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--back-to-top-bg);
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            z-index: 999;
         }
-        
-        .footer-note i {
-            font-size: 1.2rem;
+        #back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        #back-to-top:hover {
+            transform: scale(1.1);
+            background: var(--gold);
+            color: #0a0806;
         }
 
         @media (max-width: 480px) {
             .brand-header h1 { font-size: 2.5rem; }
+            .theme-switch-wrapper { top: 10px; left: 10px; }
+            .header-wrapper { padding-top: 5px; padding-bottom: 10px; }
             .menu-box { padding: 25px 15px; border-radius: 15px; }
             .category-title { font-size: 1.4rem; }
             .menu-item { padding: 12px 0; }
+            #back-to-top { width: 45px; height: 45px; bottom: 20px; right: 20px; }
         }
     </style>
 </head>
 <body>
+    <!-- دکمه تغییر حالت روز/شب -->
+    <div class="theme-switch-wrapper">
+        <button class="theme-switch" id="theme-toggle" title="تغییر حالت روز/شب">
+            <i class="fa-solid fa-moon"></i>
+        </button>
+    </div>
+
+    <!-- دکمه بازگشت به بالا -->
+    <button id="back-to-top" title="بازگشت به بالا">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
     <div class="app-container">
-        <div class="brand-header">
-            <h1>جیران</h1>
-            <p>Menu</p>
+        <!-- هدر شیشه‌ای -->
+        <div class="header-wrapper">
+            <div class="brand-header">
+                <h1>جیران</h1>
+                <p>Menu</p>
+            </div>
         </div>
         
         <div class="menu-box">
+            <!-- درخشش پس‌زمینه -->
+            <div class="background-glow" id="bg-glow"></div>
+
             <div id="loading-container">
-                <div class="spinner"></div>
+                <div class="logo-loader">جیران</div>
                 <span style="color: var(--text-muted);">لحظه‌ای صبر کنید...</span>
             </div>
             <div id="menu-content" style="display: none;"></div>
@@ -241,6 +358,31 @@
 
         let allData = {}; 
 
+        // === عملکرد دکمه تغییر حالت شب/روز ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        let isLightMode = false;
+
+        themeToggle.addEventListener('click', () => {
+            isLightMode = !isLightMode;
+            body.classList.toggle('light-mode', isLightMode);
+            themeToggle.innerHTML = isLightMode ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+        });
+
+        // === عملکرد دکمه بازگشت به بالا ===
+        const backToTopBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // === بخش لود منو ===
         async function fetchMenu() {
             try {
                 const response = await fetch(SHEET_URL);
@@ -305,12 +447,19 @@
                 items.forEach(item => {
                     const itemDiv = document.createElement('div');
                     itemDiv.className = 'menu-item';
+                    // تبدیل قیمت به فارسی و اضافه کردن "تومان"
+                    const persianPrice = toPersianDigits(item.price);
                     itemDiv.innerHTML = `
                         <div class="item-info">
                             <span class="item-name">${item.name}</span>
                         </div>
-                        <span class="price-tag">${item.price}</span>
+                        <span class="price-tag">${persianPrice} تومان</span>
                     `;
+                    // افزودن افکت لمس به آیتم‌ها
+                    itemDiv.addEventListener('click', function() {
+                        this.classList.add('clicked');
+                        setTimeout(() => this.classList.remove('clicked'), 300);
+                    });
                     section.appendChild(itemDiv);
                 });
 
@@ -320,25 +469,34 @@
             setupScrollAnimation();
         }
 
+        // === تبدیل اعداد به فارسی ===
+        function toPersianDigits(num) {
+            const persianDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+            return num.toString().replace(/\d/g, d => persianDigits[d]);
+        }
+
+        // === سیستم تشخیص اسکرول و پارالاکس (Idea 5) ===
         function setupScrollAnimation() {
             const sections = document.querySelectorAll('.category-section');
+            const glow = document.getElementById('bg-glow');
             
             const observerOptions = {
                 root: null,
-                rootMargin: '-10% 0px -10% 0px', // کمی زودتر وارد عمل شود
+                rootMargin: '-10% 0px -10% 0px',
                 threshold: 0.1
             };
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // ورود به صفحه
                         entry.target.classList.remove('fade-out');
                         entry.target.classList.add('fade-in');
+                        // ایجاد درخشش در پس‌زمینه
+                        glow.classList.add('active');
                     } else {
-                        // خروج از صفحه
                         entry.target.classList.remove('fade-in');
                         entry.target.classList.add('fade-out');
+                        glow.classList.remove('active');
                     }
                 });
             }, observerOptions);
