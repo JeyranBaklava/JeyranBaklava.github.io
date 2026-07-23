@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منوی جیران | Jeyran Baklava</title>
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/misc/Farsi-Digits/font-face.css" rel="stylesheet" type="text/css" />
+    <!-- لینک فونت وزیرمتن با ارقام فارسی -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -40,7 +41,6 @@
             margin: 20px auto;
         }
 
-        /* هدر */
         .brand-header {
             text-align: center;
             margin-bottom: 40px;
@@ -72,7 +72,6 @@
             box-shadow: 0 0 10px var(--gold-glow);
         }
 
-        /* باکس منو با درخشش طلایی */
         .menu-box {
             background: var(--bg-card);
             padding: 40px 30px;
@@ -94,15 +93,31 @@
         .menu-box::before { top: -15px; right: -15px; }
         .menu-box::after { bottom: -15px; left: -15px; }
 
+        /* استایل بخش‌ها با انیمیشن محو شدن */
         .category-section {
-            margin-bottom: 50px; /* فاصله بین دسته‌ها */
-            animation: fadeSlideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            margin-bottom: 50px;
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            will-change: transform, opacity;
         }
         .category-section:last-child {
             margin-bottom: 0;
         }
 
-        @keyframes fadeSlideUp {
+        /* کلاس مخفی شدن (وقتی از دید خارج می‌شود) */
+        .category-section.fade-out {
+            opacity: 0;
+            transform: translateY(30px);
+            pointer-events: none; /* برای جلوگیری از کلیک هنگام مخفی بودن */
+        }
+
+        /* کلاس نمایش (وقتی وارد دید می‌شود) */
+        .category-section.fade-in {
+            animation: itemFadeIn 0.8s ease forwards;
+        }
+
+        @keyframes itemFadeIn {
             0% { opacity: 0; transform: translateY(20px) scale(0.98); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
@@ -124,7 +139,6 @@
             text-shadow: 0 0 15px var(--gold-glow);
         }
 
-        /* آیتم‌های منو */
         .menu-item {
             display: flex;
             justify-content: space-between;
@@ -132,24 +146,7 @@
             padding: 14px 5px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
             transition: all 0.3s ease;
-            opacity: 0;
-            animation: itemFadeIn 0.5s forwards;
         }
-        .menu-item:nth-child(2) { animation-delay: 0.1s; }
-        .menu-item:nth-child(3) { animation-delay: 0.2s; }
-        .menu-item:nth-child(4) { animation-delay: 0.3s; }
-        .menu-item:nth-child(5) { animation-delay: 0.4s; }
-        .menu-item:nth-child(6) { animation-delay: 0.5s; }
-        .menu-item:nth-child(7) { animation-delay: 0.6s; }
-        .menu-item:nth-child(8) { animation-delay: 0.7s; }
-        .menu-item:nth-child(9) { animation-delay: 0.8s; }
-        .menu-item:nth-child(10) { animation-delay: 0.9s; }
-
-        @keyframes itemFadeIn {
-            0% { opacity: 0; transform: translateX(-10px); filter: blur(2px); }
-            100% { opacity: 1; transform: translateX(0); filter: blur(0); }
-        }
-
         .menu-item:hover {
             background: rgba(212, 175, 55, 0.08);
             border-radius: 12px;
@@ -178,7 +175,6 @@
             backdrop-filter: blur(4px);
         }
 
-        /* لودینگ */
         #loading-container {
             display: flex;
             flex-direction: column;
@@ -197,7 +193,6 @@
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* فوتر با اینستاگرام و شماره تماس */
         .footer-note {
             text-align: center;
             font-size: 0.9rem;
@@ -237,7 +232,7 @@
     <div class="app-container">
         <div class="brand-header">
             <h1>جیران</h1>
-            <p>Baklava & Cafe Menu</p>
+            <p>Menu</p>
         </div>
         
         <div class="menu-box">
@@ -250,9 +245,6 @@
             <div class="footer-note">
                 <i class="fa-brands fa-instagram"></i> اینستاگرام ما: 
                 <a href="https://instagram.com/jeyran.baklava" target="_blank">@jeyran.baklava</a>
-                <br>
-                <i class="fa-solid fa-phone"></i> تماس با ما: 
-                <a href="tel:+989123456789">۰۹۱۲ ۳۴۵ ۶۷۸۹</a> <!-- این شماره را می‌توانید تغییر دهید -->
                 <br><br>
                 به منظور حفظ حقوق مشتریان گرامی!<br>
                 قیمت انواع باقلوها بر اساس وزن محاسبه می‌شود.
@@ -314,12 +306,13 @@
                 'سوتلاوا': 'fa-bowl-food'
             };
 
-            // ساخت تمام دسته‌ها به صورت عمودی (اسکرول)
-            categories.forEach((cat) => {
+            // ساخت تمام دسته‌ها به صورت عمودی
+            categories.forEach((cat, index) => {
                 const items = allData[cat];
                 
                 const section = document.createElement('div');
                 section.className = 'category-section';
+                section.dataset.index = index; // ذخیره اندیس برای مشاهده گر
 
                 const title = document.createElement('div');
                 title.className = 'category-title';
@@ -340,6 +333,39 @@
                 });
 
                 container.appendChild(section);
+            });
+
+            // راه‌اندازی سیستم تشخیص اسکرول (Intersection Observer)
+            setupScrollAnimation();
+        }
+
+        function setupScrollAnimation() {
+            const sections = document.querySelectorAll('.category-section');
+            
+            // گزینه‌های مشاهده‌گر
+            const observerOptions = {
+                root: null, // از viewport پیش‌فرض استفاده کند
+                rootMargin: '0px',
+                threshold: 0.25 // وقتی ۲۵٪ از بخش دیده شد، فعال شود
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // وقتی وارد دید شد، fade-in اضافه و fade-out حذف شود
+                        entry.target.classList.add('fade-in');
+                        entry.target.classList.remove('fade-out');
+                    } else {
+                        // وقتی از دید خارج شد، fade-out اضافه شود
+                        entry.target.classList.add('fade-out');
+                        entry.target.classList.remove('fade-in');
+                    }
+                });
+            }, observerOptions);
+
+            // شروع نظارت روی تمام بخش‌ها
+            sections.forEach(section => {
+                observer.observe(section);
             });
         }
 
