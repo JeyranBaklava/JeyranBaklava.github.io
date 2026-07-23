@@ -19,6 +19,7 @@
             --header-bg: rgba(10, 8, 6, 0.7);
             --shadow-color: rgba(0,0,0,0.8);
             --back-to-top-bg: #14110e;
+            --line-thickness: 0.5px; /* خطوط بسیار ظریف، شبیه به لوگو */
         }
 
         /* حالت روز (Light Mode) */
@@ -108,7 +109,7 @@
             transition: all 0.5s ease;
         }
         
-        /* رنگ لوگو: در حالت تیره طلایی، در حالت روشن طلایی تیره‌تر */
+        /* رنگ لوگو */
         .brand-logo-svg {
             width: 100%;
             height: auto;
@@ -123,10 +124,12 @@
             letter-spacing: 3px;
             transition: color 0.5s ease;
         }
+        
+        /* خط تزئینی زیر منو (با الهام از لوگو) */
         .brand-header::after {
             content: '';
             width: 60px;
-            height: 2px;
+            height: var(--line-thickness);
             background: var(--gold);
             position: absolute;
             bottom: -10px;
@@ -139,8 +142,8 @@
         .random-tagline-container {
             margin-top: 20px;
             padding: 10px 10px;
-            border-top: 1px solid rgba(212, 175, 55, 0.15);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+            border-top: var(--line-thickness) solid rgba(212, 175, 55, 0.15);
+            border-bottom: var(--line-thickness) solid rgba(212, 175, 55, 0.15);
             min-height: 40px;
             display: flex;
             align-items: center;
@@ -171,7 +174,7 @@
             transition: background 0.5s ease, box-shadow 0.5s ease;
         }
 
-        /* جستجو */
+        /* جستجو - با خطوط مینیمال */
         .search-wrapper {
             position: relative;
             z-index: 5;
@@ -180,7 +183,7 @@
             align-items: center;
             gap: 10px;
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(212, 175, 55, 0.15);
+            border: var(--line-thickness) solid rgba(212, 175, 55, 0.15);
             border-radius: 50px;
             padding: 5px 15px;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -203,6 +206,7 @@
             color: var(--text-main);
             font-family: var(--font-main);
             font-size: 1.1rem;
+            font-weight: 300; /* فونت باریک */
             width: 100%;
             padding: 12px 0;
         }
@@ -257,28 +261,34 @@
         .category-section.fade-in { opacity: 1; transform: translateY(0); }
 
         .category-title {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: var(--gold);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            /* خطوط مینیمال طلایی، شبیه به لوگو */
+            border-bottom: var(--line-thickness) solid rgba(212, 175, 55, 0.15);
             padding-bottom: 12px;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 12px;
-            font-weight: 400;
+            font-weight: 300; /* فونت باریک */
+            letter-spacing: 1px;
         }
-        .category-title i { font-size: 1.6rem; }
+        .category-title i { 
+            font-size: 1.2rem; 
+            opacity: 0.7;
+        }
 
         .menu-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 5px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 12px 0;
+            /* خطوط افقی خیلی ظریف */
+            border-bottom: var(--line-thickness) solid rgba(255, 255, 255, 0.03);
             transition: all 0.3s ease;
             cursor: pointer;
         }
-        .light-mode .menu-item { border-bottom-color: rgba(0, 0, 0, 0.05); }
+        .light-mode .menu-item { border-bottom-color: rgba(0, 0, 0, 0.03); }
 
         .menu-item:active, .menu-item.clicked {
             transform: scale(0.98);
@@ -288,24 +298,27 @@
         }
 
         .menu-item:hover {
-            background: rgba(212, 175, 55, 0.08);
+            background: rgba(212, 175, 55, 0.05);
             border-radius: 12px;
             padding-left: 12px;
             padding-right: 12px;
         }
 
         .item-info { display: flex; flex-direction: column; max-width: 70%; }
-        .item-name { font-size: 1.1rem; font-weight: 500; }
+        .item-name { 
+            font-size: 1.1rem; 
+            font-weight: 300; /* فونت باریک مینیمال */
+            letter-spacing: 0.5px;
+        }
 
         .price-tag {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
-            padding: 6px 14px;
-            border-radius: 30px;
+            background: transparent;
+            padding: 4px 10px;
             color: var(--gold);
-            font-weight: 700;
+            font-weight: 400;
             font-size: 1rem;
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            backdrop-filter: blur(4px);
+            border: var(--line-thickness) solid rgba(212, 175, 55, 0.2);
+            border-radius: 30px;
             white-space: nowrap;
         }
 
@@ -334,7 +347,7 @@
             font-size: 0.85rem;
             color: var(--text-muted);
             margin-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: var(--line-thickness) solid rgba(255, 255, 255, 0.05);
             padding-top: 20px;
             line-height: 1.8;
             position: relative;
@@ -360,18 +373,19 @@
             z-index: 1;
             margin-top: 25px;
             padding: 15px 15px;
-            border: 1px solid var(--gold);
+            border: var(--line-thickness) solid var(--gold);
             border-radius: 15px;
-            background: rgba(212, 175, 55, 0.05);
+            background: rgba(212, 175, 55, 0.03);
             text-align: center;
             font-size: 1rem;
             color: var(--text-main);
             letter-spacing: 1px;
+            font-weight: 300;
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.05);
             transition: background 0.5s ease;
         }
         .light-mode .order-box {
-            background: rgba(212, 175, 55, 0.08);
+            background: rgba(212, 175, 55, 0.05);
         }
 
         #back-to-top {
@@ -382,7 +396,7 @@
             height: 50px;
             background: var(--back-to-top-bg);
             color: var(--gold);
-            border: 2px solid var(--gold);
+            border: var(--line-thickness) solid var(--gold);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -436,7 +450,7 @@
         <div class="header-wrapper">
             <div class="brand-header">
                 
-                <!-- لوگوی شما به جای کلمه جیران -->
+                <!-- لوگو -->
                 <div class="brand-logo-container">
                     <svg class="brand-logo-svg" viewBox="0 0 187 83" xmlns="http://www.w3.org/2000/svg">
                         <path d="M121.658 66.0712C121.814 66.0713 122.22 66.3706 122.563 66.7442C122.876 67.0808 124.624 68.8743 126.435 70.7052C128.247 72.499 129.746 74.1062 129.808 74.2557C129.838 74.3698 128.277 76.4241 126.311 78.7399L122.72 83L120.971 81.1689C117.223 77.3198 117.41 77.32 114.6 80.7955C113.57 82.1405 112.696 83.0745 112.695 82.9253C112.695 82.7752 110.852 80.7575 108.573 78.4036L104.451 74.1434L108.042 70.1073C110.009 67.9027 111.79 66.0715 112.008 66.0712C112.227 66.0716 113.414 67.0808 114.631 68.3137C115.88 69.5463 116.941 70.5548 117.036 70.5558C117.161 70.5558 118.16 69.5469 119.316 68.3137C120.44 67.0807 121.501 66.0715 121.658 66.0712Z" />
