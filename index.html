@@ -3,54 +3,257 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منوی کافه جیران</title>
+    <title>منوی جیران | Jeyran Baklava</title>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/misc/Farsi-Digits/font-face.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --bg-body: #0d0d0d; --bg-card: #141414; --text-main: #f5f0e8; --text-muted: #a39e96; --gold: #c9a85b; --gold-dark: #a8873a; }
+        :root {
+            --bg-body: #0a0806;
+            --bg-card: #14110e;
+            --text-main: #f5ece1;
+            --text-muted: #9f9385;
+            --gold: #d4af37;
+            --gold-glow: rgba(212, 175, 55, 0.3);
+            --font-main: 'Vazirmatn', sans-serif;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--bg-body); color: var(--text-main); font-family: 'Vazirmatn', sans-serif; min-height: 100vh; display: flex; justify-content: center; padding: 20px; background-image: radial-gradient(circle at 20% 30%, #1f1b17 0%, #0a0a0a 80%); }
-        .app-container { width: 100%; max-width: 550px; margin-top: 20px; }
-        .brand-header { text-align: center; margin-bottom: 30px; }
-        .brand-header h1 { font-size: 3rem; color: var(--gold); letter-spacing: 4px; font-weight: 400; text-shadow: 0 0 15px rgba(201, 168, 91, 0.15); }
-        .brand-header p { color: var(--text-muted); font-size: 0.9rem; margin-top: -5px; letter-spacing: 2px; }
-        .tabs-container { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 35px; }
-        .tab-btn { background: transparent; border: 1px solid #333; color: var(--text-muted); padding: 10px 25px; border-radius: 50px; cursor: pointer; font-family: 'Vazirmatn', sans-serif; font-size: 1rem; transition: all 0.3s ease; }
-        .tab-btn:hover { border-color: var(--gold-dark); color: var(--text-main); }
-        .tab-btn.active { background: var(--gold); border-color: var(--gold); color: #0d0d0d; font-weight: bold; box-shadow: 0 4px 15px rgba(201, 168, 91, 0.3); }
-        .menu-box { background: var(--bg-card); padding: 30px 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #222; position: relative; overflow: hidden; }
-        .category-section { display: none; animation: fadeIn 0.6s ease forwards; }
-        .category-section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        .category-title { font-size: 1.8rem; color: var(--gold); border-bottom: 2px solid #222; padding-bottom: 15px; margin-bottom: 25px; display: flex; align-items: center; gap: 10px; }
-        .category-title i { font-size: 1.5rem; opacity: 0.8; }
-        .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px dashed #2a2a2a; transition: background 0.2s; padding-left: 5px; padding-right: 5px; }
-        .menu-item:last-child { border-bottom: none; }
-        .menu-item:hover { background: rgba(201, 168, 91, 0.05); border-radius: 8px; }
-        .item-info { display: flex; flex-direction: column; max-width: 70%; }
-        .item-name { font-size: 1.1rem; font-weight: 500; }
-        .price-tag { background: #1f1f1f; padding: 5px 12px; border-radius: 20px; color: var(--gold); font-weight: bold; font-size: 1rem; border: 1px solid #2a2a2a; }
-        #loading-container { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 0; gap: 20px; }
-        .spinner { width: 40px; height: 40px; border: 4px solid #222; border-top: 4px solid var(--gold); border-radius: 50%; animation: spin 1s linear infinite; }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
+                linear-gradient(180deg, #0a0806 0%, #1a1410 100%);
+            background-attachment: fixed;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        /* هدر */
+        .brand-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+        .brand-header h1 {
+            font-size: 3.5rem;
+            color: var(--gold);
+            letter-spacing: 5px;
+            font-weight: 300;
+            text-shadow: 0 0 30px var(--gold-glow);
+        }
+        .brand-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        .brand-header::after {
+            content: '';
+            width: 60px;
+            height: 2px;
+            background: var(--gold);
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px var(--gold-glow);
+        }
+
+        /* باکس منو با درخشش طلایی */
+        .menu-box {
+            background: var(--bg-card);
+            padding: 40px 30px;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .menu-box::before, .menu-box::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--gold);
+            opacity: 0.3;
+            border-radius: 50%;
+        }
+        .menu-box::before { top: -15px; right: -15px; }
+        .menu-box::after { bottom: -15px; left: -15px; }
+
+        .category-section {
+            margin-bottom: 50px; /* فاصله بین دسته‌ها */
+            animation: fadeSlideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        .category-section:last-child {
+            margin-bottom: 0;
+        }
+
+        @keyframes fadeSlideUp {
+            0% { opacity: 0; transform: translateY(20px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .category-title {
+            font-size: 2rem;
+            color: var(--gold);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 400;
+        }
+        .category-title i {
+            font-size: 1.8rem;
+            color: var(--gold);
+            text-shadow: 0 0 15px var(--gold-glow);
+        }
+
+        /* آیتم‌های منو */
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: itemFadeIn 0.5s forwards;
+        }
+        .menu-item:nth-child(2) { animation-delay: 0.1s; }
+        .menu-item:nth-child(3) { animation-delay: 0.2s; }
+        .menu-item:nth-child(4) { animation-delay: 0.3s; }
+        .menu-item:nth-child(5) { animation-delay: 0.4s; }
+        .menu-item:nth-child(6) { animation-delay: 0.5s; }
+        .menu-item:nth-child(7) { animation-delay: 0.6s; }
+        .menu-item:nth-child(8) { animation-delay: 0.7s; }
+        .menu-item:nth-child(9) { animation-delay: 0.8s; }
+        .menu-item:nth-child(10) { animation-delay: 0.9s; }
+
+        @keyframes itemFadeIn {
+            0% { opacity: 0; transform: translateX(-10px); filter: blur(2px); }
+            100% { opacity: 1; transform: translateX(0); filter: blur(0); }
+        }
+
+        .menu-item:hover {
+            background: rgba(212, 175, 55, 0.08);
+            border-radius: 12px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .item-info {
+            display: flex;
+            flex-direction: column;
+            max-width: 70%;
+        }
+        .item-name {
+            font-size: 1.15rem;
+            font-weight: 500;
+        }
+
+        .price-tag {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+            padding: 6px 14px;
+            border-radius: 30px;
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1rem;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            backdrop-filter: blur(4px);
+        }
+
+        /* لودینگ */
+        #loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 0;
+            gap: 20px;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(212, 175, 55, 0.1);
+            border-top: 3px solid var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .footer-note { text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 30px; border-top: 1px solid #222; padding-top: 20px; line-height: 1.8; }
-        @media (max-width: 480px) { .brand-header h1 { font-size: 2.5rem; } .tab-btn { padding: 8px 18px; font-size: 0.9rem; } .menu-box { padding: 20px 15px; } .category-title { font-size: 1.5rem; } }
+
+        /* فوتر با اینستاگرام و شماره تماس */
+        .footer-note {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 25px;
+            line-height: 2;
+        }
+        
+        .footer-note a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 10px;
+        }
+        .footer-note a:hover {
+            color: #fff;
+        }
+        
+        .footer-note i {
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 480px) {
+            .brand-header h1 { font-size: 2.5rem; }
+            .menu-box { padding: 25px 15px; border-radius: 15px; }
+            .category-title { font-size: 1.4rem; }
+            .menu-item { padding: 12px 0; }
+        }
     </style>
 </head>
 <body>
     <div class="app-container">
         <div class="brand-header">
-            <h1>جِیران</h1>
-            <p>کافه و شیرینی</p>
+            <h1>جیران</h1>
+            <p>Baklava & Cafe Menu</p>
         </div>
-        <div id="tabs-wrapper" class="tabs-container"></div>
+        
         <div class="menu-box">
             <div id="loading-container">
                 <div class="spinner"></div>
-                <span style="color: #a39e96;">در حال دریافت منو...</span>
+                <span style="color: var(--text-muted);">لحظه‌ای صبر کنید...</span>
             </div>
             <div id="menu-content" style="display: none;"></div>
+            
             <div class="footer-note">
+                <i class="fa-brands fa-instagram"></i> اینستاگرام ما: 
+                <a href="https://instagram.com/jeyran.baklava" target="_blank">@jeyran.baklava</a>
+                <br>
+                <i class="fa-solid fa-phone"></i> تماس با ما: 
+                <a href="tel:+989123456789">۰۹۱۲ ۳۴۵ ۶۷۸۹</a> <!-- این شماره را می‌توانید تغییر دهید -->
+                <br><br>
                 به منظور حفظ حقوق مشتریان گرامی!<br>
                 قیمت انواع باقلوها بر اساس وزن محاسبه می‌شود.
             </div>
@@ -58,7 +261,7 @@
     </div>
 
     <script>
-        // *** لینک گوگل شیت شما اینجا جایگذاری شده است ***
+        // لینک گوگل شیت شما
         const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS4EbNcHP_D2_EKfiLEWbFw8O1CdIVG4Q4DKfYTTfp0jU7soEG4kqlQdNgCmeTktskiMD8QThKSrwvL/pub?output=csv';
 
         let allData = {}; 
@@ -69,8 +272,7 @@
                 const csvText = await response.text();
                 parseCSVAndRender(csvText);
             } catch (error) {
-                document.getElementById('loading-container').innerHTML = `<span style="color:#c9a85b;">خطا در ارتباط با سرور. لطفاً صفحه را رفرش کنید.</span>`;
-                console.error(error);
+                document.getElementById('loading-container').innerHTML = `<span style="color: #d4af37;">خطا در ارتباط. لطفاً صفحه را رفرش کنید.</span>`;
             }
         }
 
@@ -85,7 +287,6 @@
                     const category = columns[0].trim();
                     const name = columns[1].trim();
                     const price = columns[2].trim();
-
                     if(!groupedItems[category]) {
                         groupedItems[category] = [];
                     }
@@ -94,14 +295,15 @@
             });
 
             allData = groupedItems;
-            renderTabs(Object.keys(groupedItems));
-            renderCategory(Object.keys(groupedItems)[0]); 
+            renderAllCategories(Object.keys(groupedItems)); 
         }
 
-        function renderTabs(categories) {
-            const wrapper = document.getElementById('tabs-wrapper');
-            wrapper.innerHTML = '';
-            
+        function renderAllCategories(categories) {
+            const container = document.getElementById('menu-content');
+            container.style.display = 'block';
+            document.getElementById('loading-container').style.display = 'none';
+            container.innerHTML = '';
+
             const iconMap = {
                 'نوشیدنی': 'fa-mug-hot',
                 'کنافه': 'fa-utensils',
@@ -112,51 +314,33 @@
                 'سوتلاوا': 'fa-bowl-food'
             };
 
-            categories.forEach((cat, index) => {
-                const btn = document.createElement('button');
-                btn.className = 'tab-btn' + (index === 0 ? ' active' : '');
+            // ساخت تمام دسته‌ها به صورت عمودی (اسکرول)
+            categories.forEach((cat) => {
+                const items = allData[cat];
+                
+                const section = document.createElement('div');
+                section.className = 'category-section';
+
+                const title = document.createElement('div');
+                title.className = 'category-title';
                 const iconClass = iconMap[cat] || 'fa-circle';
-                btn.innerHTML = `<i class="fa-solid ${iconClass}" style="margin-left:8px;"></i> ${cat}`;
-                btn.onclick = () => switchTab(cat, btn);
-                wrapper.appendChild(btn);
+                title.innerHTML = `<i class="fa-solid ${iconClass}"></i> ${cat}`;
+                section.appendChild(title);
+
+                items.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'menu-item';
+                    itemDiv.innerHTML = `
+                        <div class="item-info">
+                            <span class="item-name">${item.name}</span>
+                        </div>
+                        <span class="price-tag">${item.price}</span>
+                    `;
+                    section.appendChild(itemDiv);
+                });
+
+                container.appendChild(section);
             });
-        }
-
-        function switchTab(category, btnElement) {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            btnElement.classList.add('active');
-            renderCategory(category);
-        }
-
-        function renderCategory(category) {
-            const container = document.getElementById('menu-content');
-            container.style.display = 'block';
-            document.getElementById('loading-container').style.display = 'none';
-            container.innerHTML = '';
-
-            const items = allData[category];
-            
-            const section = document.createElement('div');
-            section.className = 'category-section active';
-
-            const title = document.createElement('div');
-            title.className = 'category-title';
-            title.innerHTML = `<i class="fa-solid fa-hashtag"></i> ${category}`;
-            section.appendChild(title);
-
-            items.forEach(item => {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'menu-item';
-                itemDiv.innerHTML = `
-                    <div class="item-info">
-                        <span class="item-name">${item.name}</span>
-                    </div>
-                    <span class="price-tag">${item.price}</span>
-                `;
-                section.appendChild(itemDiv);
-            });
-
-            container.appendChild(section);
         }
 
         window.onload = fetchMenu;
