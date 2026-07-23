@@ -91,7 +91,7 @@
             background: var(--header-bg);
             transition: background 0.5s ease;
             border-radius: 0 0 20px 20px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             padding-bottom: 20px;
         }
 
@@ -127,19 +127,18 @@
 
         /* نوار تبلیغاتی تصادفی */
         .random-tagline-container {
-            margin-top: 25px;
-            padding: 12px 10px;
+            margin-top: 20px;
+            padding: 10px 10px;
             border-top: 1px solid rgba(212, 175, 55, 0.15);
             border-bottom: 1px solid rgba(212, 175, 55, 0.15);
-            min-height: 45px;
+            min-height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
         }
         .random-tagline {
             color: var(--gold);
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 300;
             letter-spacing: 0.5px;
             opacity: 0.9;
@@ -153,13 +152,69 @@
 
         .menu-box {
             background: var(--bg-card);
-            padding: 40px 30px;
+            padding: 30px 25px;
             border-radius: 25px;
             box-shadow: 0 20px 60px var(--shadow-color);
             border: 1px solid rgba(212, 175, 55, 0.1);
             position: relative;
             overflow: hidden;
             transition: background 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        /* جستجو */
+        .search-wrapper {
+            position: relative;
+            z-index: 5;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 50px;
+            padding: 5px 15px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .search-wrapper:focus-within {
+            border-color: var(--gold);
+            box-shadow: 0 0 15px var(--gold-glow);
+        }
+        .light-mode .search-wrapper {
+            background: rgba(255, 255, 255, 0.5);
+        }
+        .search-wrapper i {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+        .search-wrapper input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-main);
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            width: 100%;
+            padding: 12px 0;
+        }
+        .search-wrapper input::placeholder {
+            color: var(--text-muted);
+            opacity: 0.8;
+        }
+        .search-clear-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 5px;
+            display: none;
+            transition: color 0.3s ease;
+        }
+        .search-clear-btn:hover {
+            color: var(--gold);
+        }
+        .search-clear-btn.visible {
+            display: block;
         }
 
         .background-glow {
@@ -179,10 +234,11 @@
             transform: translateY(50px);
         }
 
+        /* برای بخش جستجو، انیمیشن‌های اسکرول را متوقف می‌کنیم */
         .category-section {
             position: relative;
             z-index: 1;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             opacity: 1;
             transform: translateY(0);
             transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -192,23 +248,23 @@
         .category-section.fade-in { opacity: 1; transform: translateY(0); }
 
         .category-title {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: var(--gold);
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            padding-bottom: 15px;
-            margin-bottom: 25px;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             font-weight: 400;
         }
-        .category-title i { font-size: 1.8rem; }
+        .category-title i { font-size: 1.6rem; }
 
         .menu-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 5px;
+            padding: 12px 5px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
             transition: all 0.3s ease;
             cursor: pointer;
@@ -225,12 +281,12 @@
         .menu-item:hover {
             background: rgba(212, 175, 55, 0.08);
             border-radius: 12px;
-            padding-left: 15px;
-            padding-right: 15px;
+            padding-left: 12px;
+            padding-right: 12px;
         }
 
         .item-info { display: flex; flex-direction: column; max-width: 70%; }
-        .item-name { font-size: 1.15rem; font-weight: 500; }
+        .item-name { font-size: 1.1rem; font-weight: 500; }
 
         .price-tag {
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
@@ -266,12 +322,12 @@
 
         .footer-note {
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
             margin-top: 30px;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 25px;
-            line-height: 2;
+            padding-top: 20px;
+            line-height: 1.8;
             position: relative;
             z-index: 1;
             transition: color 0.5s ease;
@@ -293,13 +349,13 @@
         .order-box {
             position: relative;
             z-index: 1;
-            margin-top: 30px;
-            padding: 18px 15px;
+            margin-top: 25px;
+            padding: 15px 15px;
             border: 1px solid var(--gold);
             border-radius: 15px;
             background: rgba(212, 175, 55, 0.05);
             text-align: center;
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--text-main);
             letter-spacing: 1px;
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.05);
@@ -344,11 +400,12 @@
             .brand-header h1 { font-size: 2.5rem; }
             .theme-switch-wrapper { top: 10px; left: 10px; }
             .header-wrapper { padding-top: 5px; padding-bottom: 10px; }
-            .menu-box { padding: 25px 15px; border-radius: 15px; }
-            .category-title { font-size: 1.4rem; }
-            .menu-item { padding: 12px 0; }
+            .menu-box { padding: 20px 15px; border-radius: 15px; }
+            .category-title { font-size: 1.3rem; }
+            .menu-item { padding: 10px 0; }
+            .search-wrapper input { font-size: 1rem; padding: 10px 0; }
             #back-to-top { width: 45px; height: 45px; bottom: 20px; right: 20px; }
-            .random-tagline { font-size: 0.9rem; }
+            .random-tagline { font-size: 0.85rem; }
         }
     </style>
 </head>
@@ -371,7 +428,6 @@
             <div class="brand-header">
                 <h1>جیران</h1>
                 <p>Menu</p>
-                <!-- کانتینر جمله تبلیغاتی تصادفی -->
                 <div class="random-tagline-container">
                     <div id="random-tagline" class="random-tagline"></div>
                 </div>
@@ -385,9 +441,10 @@
                 <div class="logo-loader">جیران</div>
                 <span style="color: var(--text-muted);">لحظه‌ای صبر کنید...</span>
             </div>
-            <div id="menu-content" style="display: none;"></div>
             
-            <!-- جمله ثبت سفارش -->
+            <div id="menu-content" style="display: none;"></div>
+
+            <!-- کادر ثبت سفارش -->
             <div class="order-box">
                 <i class="fa-solid fa-cart-shopping" style="color: var(--gold); margin-left: 8px;"></i>
                 برای ثبت سفارش به صندوق مراجعه فرمایید.
@@ -407,6 +464,7 @@
         const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS4EbNcHP_D2_EKfiLEWbFw8O1CdIVG4Q4DKfYTTfp0jU7soEG4kqlQdNgCmeTktskiMD8QThKSrwvL/pub?output=csv';
 
         let allData = {}; 
+        let allRawItems = []; // برای استفاده در جستجو
 
         // === ۵۰ جمله تبلیغاتی تصادفی ===
         const taglines = [
@@ -492,7 +550,6 @@
             const selectedTagline = taglines[randomIndex];
             const taglineElement = document.getElementById('random-tagline');
             
-            // انیمیشن محو شدن و ظاهر شدن با تأخیر
             taglineElement.style.opacity = '0';
             taglineElement.style.transform = 'translateY(8px)';
             
@@ -518,6 +575,7 @@
             const lines = csv.split('\n').filter(line => line.trim() !== '');
             const data = lines.slice(1); 
             const groupedItems = {};
+            allRawItems = []; // ریست کردن لیست جستجو
 
             data.forEach(line => {
                 const columns = line.split(',');
@@ -529,6 +587,8 @@
                         groupedItems[category] = [];
                     }
                     groupedItems[category].push({ name, price });
+                    // ذخیره در لیست مسطح برای جستجو
+                    allRawItems.push({ category, name, price });
                 }
             });
 
@@ -536,7 +596,7 @@
             renderAllCategories(Object.keys(groupedItems)); 
         }
 
-        function renderAllCategories(categories) {
+        function renderAllCategories(categories, searchTerm = '') {
             const container = document.getElementById('menu-content');
             container.style.display = 'block';
             document.getElementById('loading-container').style.display = 'none';
@@ -552,6 +612,36 @@
                 'سوتلاوا': 'fa-bowl-food'
             };
 
+            // اگر جستجو انجام شده، فقط آیتم‌های فیلتر شده را نمایش بده
+            let categoriesToRender = [];
+            if (searchTerm.trim() !== '') {
+                // حالت جستجو: همه آیتم‌های منطبق را در یک بخش نمایش بده
+                const searchLowerCase = searchTerm.toLowerCase();
+                const foundItems = allRawItems.filter(item => 
+                    item.name.includes(searchLowerCase) || 
+                    item.category.includes(searchLowerCase)
+                );
+                
+                if (foundItems.length > 0) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'category-section';
+                    const title = document.createElement('div');
+                    title.className = 'category-title';
+                    title.innerHTML = `<i class="fa-solid fa-search" style="font-size:1.2rem;"></i> نتایج جستجو برای "${searchTerm}"`;
+                    wrapper.appendChild(title);
+
+                    foundItems.forEach(item => {
+                        const itemDiv = createMenuItem(item.name, item.price);
+                        wrapper.appendChild(itemDiv);
+                    });
+                    container.appendChild(wrapper);
+                } else {
+                    container.innerHTML = `<div style="text-align:center; padding:30px 0; color: var(--text-muted); font-size:1.1rem;">موردی برای "${searchTerm}" یافت نشد.</div>`;
+                }
+                return;
+            }
+
+            // حالت عادی: نمایش همه دسته‌ها
             categories.forEach((cat) => {
                 const items = allData[cat];
                 
@@ -566,21 +656,7 @@
                 section.appendChild(title);
 
                 items.forEach(item => {
-                    const itemDiv = document.createElement('div');
-                    itemDiv.className = 'menu-item';
-                    // تبدیل قیمت به فارسی و اضافه کردن "تومان"
-                    const persianPrice = toPersianDigits(item.price);
-                    itemDiv.innerHTML = `
-                        <div class="item-info">
-                            <span class="item-name">${item.name}</span>
-                        </div>
-                        <span class="price-tag">${persianPrice} تومان</span>
-                    `;
-                    // افزودن افکت لمس به آیتم‌ها
-                    itemDiv.addEventListener('click', function() {
-                        this.classList.add('clicked');
-                        setTimeout(() => this.classList.remove('clicked'), 300);
-                    });
+                    const itemDiv = createMenuItem(item.name, item.price);
                     section.appendChild(itemDiv);
                 });
 
@@ -588,6 +664,24 @@
             });
 
             setupScrollAnimation();
+        }
+
+        // تابع کمکی برای ساخت آیتم منو
+        function createMenuItem(name, price) {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'menu-item';
+            const persianPrice = toPersianDigits(price);
+            itemDiv.innerHTML = `
+                <div class="item-info">
+                    <span class="item-name">${name}</span>
+                </div>
+                <span class="price-tag">${persianPrice} تومان</span>
+            `;
+            itemDiv.addEventListener('click', function() {
+                this.classList.add('clicked');
+                setTimeout(() => this.classList.remove('clicked'), 300);
+            });
+            return itemDiv;
         }
 
         // === تبدیل اعداد به فارسی ===
@@ -626,10 +720,60 @@
             });
         }
 
+        // === سیستم جستجو ===
+        function setupSearch() {
+            const searchWrapper = document.createElement('div');
+            searchWrapper.className = 'search-wrapper';
+            searchWrapper.innerHTML = `
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="search-input" placeholder="جستجو در منو (مثلاً: باقلو، چای، کنافه)...">
+                <button class="search-clear-btn" id="search-clear-btn"><i class="fa-solid fa-xmark"></i></button>
+            `;
+
+            // جاسازی بخش جستجو در بالای باکس منو، قبل از لودینگ
+            const menuBox = document.querySelector('.menu-box');
+            const loadingContainer = document.getElementById('loading-container');
+            menuBox.insertBefore(searchWrapper, loadingContainer);
+
+            const searchInput = document.getElementById('search-input');
+            const clearBtn = document.getElementById('search-clear-btn');
+
+            searchInput.addEventListener('input', (e) => {
+                const val = e.target.value;
+                if (val.length > 0) {
+                    clearBtn.classList.add('visible');
+                } else {
+                    clearBtn.classList.remove('visible');
+                }
+                
+                // اگر منو لود شده است، فیلتر را اعمال کن
+                if (Object.keys(allData).length > 0) {
+                    const categories = Object.keys(allData);
+                    // پاک کردن محتوا و رندر مجدد با فیلتر
+                    const container = document.getElementById('menu-content');
+                    container.innerHTML = '';
+                    renderAllCategories(categories, val);
+                }
+            });
+
+            clearBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                clearBtn.classList.remove('visible');
+                if (Object.keys(allData).length > 0) {
+                    const categories = Object.keys(allData);
+                    const container = document.getElementById('menu-content');
+                    container.innerHTML = '';
+                    renderAllCategories(categories, '');
+                }
+                searchInput.focus();
+            });
+        }
+
         // === اجرای اولیه کدها بعد از لود شدن کامل صفحه ===
         window.onload = function() {
             showRandomTagline(); // نمایش یک جمله تصادفی
             fetchMenu(); // لود کردن منو
+            setupSearch(); // تنظیم بخش جستجو
         };
     </script>
 </body>
