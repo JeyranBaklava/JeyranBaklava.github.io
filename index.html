@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>جیران | Jeyran Baklava</title>
-    <!-- فونت فارسی -->
+    <!-- فونت فارسی (با وزن‌های مختلف) -->
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -19,7 +19,7 @@
             --header-bg: rgba(10, 8, 6, 0.7);
             --shadow-color: rgba(0,0,0,0.8);
             --back-to-top-bg: #14110e;
-            --line-thickness: 0.5px; /* خطوط بسیار ظریف، شبیه به لوگو */
+            --line-thickness: 0.5px;
         }
 
         /* حالت روز (Light Mode) */
@@ -109,7 +109,6 @@
             transition: all 0.5s ease;
         }
         
-        /* رنگ لوگو */
         .brand-logo-svg {
             width: 100%;
             height: auto;
@@ -119,13 +118,13 @@
         }
 
         .brand-header p {
-            color: var(--text-muted);
+            color: var(--gold);
             font-size: 0.9rem;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
+            font-weight: 300;
             transition: color 0.5s ease;
         }
         
-        /* خط تزئینی زیر منو (با الهام از لوگو) */
         .brand-header::after {
             content: '';
             width: 60px;
@@ -142,8 +141,8 @@
         .random-tagline-container {
             margin-top: 20px;
             padding: 10px 10px;
-            border-top: var(--line-thickness) solid rgba(212, 175, 55, 0.15);
-            border-bottom: var(--line-thickness) solid rgba(212, 175, 55, 0.15);
+            border-top: var(--line-thickness) solid rgba(212, 175, 55, 0.2);
+            border-bottom: var(--line-thickness) solid rgba(212, 175, 55, 0.2);
             min-height: 40px;
             display: flex;
             align-items: center;
@@ -151,9 +150,9 @@
         }
         .random-tagline {
             color: var(--gold);
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 300;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             opacity: 0.9;
             text-align: center;
             animation: taglineFadeIn 0.8s ease forwards;
@@ -174,7 +173,7 @@
             transition: background 0.5s ease, box-shadow 0.5s ease;
         }
 
-        /* جستجو - با خطوط مینیمال */
+        /* جستجو */
         .search-wrapper {
             position: relative;
             z-index: 5;
@@ -182,8 +181,8 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            background: rgba(255, 255, 255, 0.03);
-            border: var(--line-thickness) solid rgba(212, 175, 55, 0.15);
+            background: rgba(255, 255, 255, 0.02);
+            border: var(--line-thickness) solid rgba(212, 175, 55, 0.2);
             border-radius: 50px;
             padding: 5px 15px;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -193,11 +192,11 @@
             box-shadow: 0 0 15px var(--gold-glow);
         }
         .light-mode .search-wrapper {
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.4);
         }
         .search-wrapper i {
             color: var(--text-muted);
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
         .search-wrapper input {
             background: transparent;
@@ -205,14 +204,15 @@
             outline: none;
             color: var(--text-main);
             font-family: var(--font-main);
-            font-size: 1.1rem;
             font-weight: 300; /* فونت باریک */
+            letter-spacing: 1px;
+            font-size: 1.1rem;
             width: 100%;
             padding: 12px 0;
         }
         .search-wrapper input::placeholder {
             color: var(--text-muted);
-            opacity: 0.8;
+            opacity: 0.6;
         }
         .search-clear-btn {
             background: transparent;
@@ -263,14 +263,13 @@
         .category-title {
             font-size: 1.6rem;
             color: var(--gold);
-            /* خطوط مینیمال طلایی، شبیه به لوگو */
             border-bottom: var(--line-thickness) solid rgba(212, 175, 55, 0.15);
             padding-bottom: 12px;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 12px;
-            font-weight: 300; /* فونت باریک */
+            font-weight: 300;
             letter-spacing: 1px;
         }
         .category-title i { 
@@ -283,7 +282,6 @@
             justify-content: space-between;
             align-items: center;
             padding: 12px 0;
-            /* خطوط افقی خیلی ظریف */
             border-bottom: var(--line-thickness) solid rgba(255, 255, 255, 0.03);
             transition: all 0.3s ease;
             cursor: pointer;
@@ -307,7 +305,7 @@
         .item-info { display: flex; flex-direction: column; max-width: 70%; }
         .item-name { 
             font-size: 1.1rem; 
-            font-weight: 300; /* فونت باریک مینیمال */
+            font-weight: 300;
             letter-spacing: 0.5px;
         }
 
@@ -315,13 +313,14 @@
             background: transparent;
             padding: 4px 10px;
             color: var(--gold);
-            font-weight: 400;
-            font-size: 1rem;
+            font-weight: 300;
+            font-size: 0.95rem;
             border: var(--line-thickness) solid rgba(212, 175, 55, 0.2);
             border-radius: 30px;
             white-space: nowrap;
         }
 
+        /* لودینگ با استایل باریک و طلایی شبیه لوگو */
         #loading-container {
             display: flex;
             flex-direction: column;
@@ -331,15 +330,22 @@
             gap: 20px;
         }
         .logo-loader {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: var(--gold);
-            font-weight: 300;
-            letter-spacing: 5px;
+            font-weight: 300; /* باریک */
+            letter-spacing: 6px; /* فاصله زیاد */
             animation: shimmer 1.5s ease-in-out infinite alternate;
         }
         @keyframes shimmer {
             0% { text-shadow: 0 0 5px rgba(212, 175, 55, 0.2); opacity: 0.7; }
             100% { text-shadow: 0 0 30px var(--gold-glow), 0 0 60px var(--gold-glow); opacity: 1; }
+        }
+        .loader-subtext {
+            color: var(--text-muted);
+            font-weight: 300;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            opacity: 0.7;
         }
 
         .footer-note {
@@ -350,6 +356,7 @@
             border-top: var(--line-thickness) solid rgba(255, 255, 255, 0.05);
             padding-top: 20px;
             line-height: 1.8;
+            font-weight: 300;
             position: relative;
             z-index: 1;
             transition: color 0.5s ease;
@@ -363,6 +370,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            font-weight: 300;
         }
         .footer-note a:hover { color: #fff; }
         .light-mode .footer-note a:hover { color: #000; }
@@ -429,6 +437,7 @@
             .search-wrapper input { font-size: 1rem; padding: 10px 0; }
             #back-to-top { width: 45px; height: 45px; bottom: 20px; right: 20px; }
             .random-tagline { font-size: 0.85rem; }
+            .logo-loader { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -462,7 +471,7 @@
                     </svg>
                 </div>
 
-                <p>Menu</p>
+                <p>MENU</p>
                 
                 <div class="random-tagline-container">
                     <div id="random-tagline" class="random-tagline"></div>
@@ -475,7 +484,7 @@
 
             <div id="loading-container">
                 <div class="logo-loader">جیران</div>
-                <span style="color: var(--text-muted);">لحظه‌ای صبر کنید...</span>
+                <span class="loader-subtext">لحظه‌ای صبر کنید...</span>
             </div>
             
             <div id="menu-content" style="display: none;"></div>
@@ -502,7 +511,6 @@
         let allData = {}; 
         let allRawItems = []; 
 
-        // === ۵۰ جمله تبلیغاتی تصادفی ===
         const taglines = [
             "جیران؛ جایی که عطر باقلو با طعم قهوه گره می‌خورد.",
             "طعمی که از دل تاریخ می‌آید؛ برای لحظات امروز شما.",
