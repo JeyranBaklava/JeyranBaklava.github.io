@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منوی جیران | Jeyran Baklava</title>
-    <!-- لینک فونت وزیرمتن با ارقام فارسی -->
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -81,45 +80,30 @@
             position: relative;
             overflow: hidden;
         }
-        .menu-box::before, .menu-box::after {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--gold);
-            opacity: 0.3;
-            border-radius: 50%;
-        }
-        .menu-box::before { top: -15px; right: -15px; }
-        .menu-box::after { bottom: -15px; left: -15px; }
 
-        /* استایل بخش‌ها با انیمیشن محو شدن */
         .category-section {
             margin-bottom: 50px;
             opacity: 1;
             transform: translateY(0);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-            will-change: transform, opacity;
+            /* بهینه‌سازی برای اسکرول روان */
+            will-change: opacity, transform;
+            transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .category-section:last-child {
             margin-bottom: 0;
         }
 
-        /* کلاس مخفی شدن (وقتی از دید خارج می‌شود) */
+        /* حالت محو شدن با نرمی بسیار بالا */
         .category-section.fade-out {
             opacity: 0;
-            transform: translateY(30px);
-            pointer-events: none; /* برای جلوگیری از کلیک هنگام مخفی بودن */
+            transform: translateY(25px);
+            pointer-events: none;
         }
 
-        /* کلاس نمایش (وقتی وارد دید می‌شود) */
         .category-section.fade-in {
-            animation: itemFadeIn 0.8s ease forwards;
-        }
-
-        @keyframes itemFadeIn {
-            0% { opacity: 0; transform: translateY(20px) scale(0.98); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .category-title {
@@ -253,7 +237,6 @@
     </div>
 
     <script>
-        // لینک گوگل شیت شما
         const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS4EbNcHP_D2_EKfiLEWbFw8O1CdIVG4Q4DKfYTTfp0jU7soEG4kqlQdNgCmeTktskiMD8QThKSrwvL/pub?output=csv';
 
         let allData = {}; 
@@ -306,13 +289,12 @@
                 'سوتلاوا': 'fa-bowl-food'
             };
 
-            // ساخت تمام دسته‌ها به صورت عمودی
-            categories.forEach((cat, index) => {
+            categories.forEach((cat) => {
                 const items = allData[cat];
                 
                 const section = document.createElement('div');
                 section.className = 'category-section';
-                section.dataset.index = index; // ذخیره اندیس برای مشاهده گر
+                section.dataset.category = cat;
 
                 const title = document.createElement('div');
                 title.className = 'category-title';
@@ -335,35 +317,32 @@
                 container.appendChild(section);
             });
 
-            // راه‌اندازی سیستم تشخیص اسکرول (Intersection Observer)
             setupScrollAnimation();
         }
 
         function setupScrollAnimation() {
             const sections = document.querySelectorAll('.category-section');
             
-            // گزینه‌های مشاهده‌گر
             const observerOptions = {
-                root: null, // از viewport پیش‌فرض استفاده کند
-                rootMargin: '0px',
-                threshold: 0.25 // وقتی ۲۵٪ از بخش دیده شد، فعال شود
+                root: null,
+                rootMargin: '-10% 0px -10% 0px', // کمی زودتر وارد عمل شود
+                threshold: 0.1
             };
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // وقتی وارد دید شد، fade-in اضافه و fade-out حذف شود
-                        entry.target.classList.add('fade-in');
+                        // ورود به صفحه
                         entry.target.classList.remove('fade-out');
+                        entry.target.classList.add('fade-in');
                     } else {
-                        // وقتی از دید خارج شد، fade-out اضافه شود
-                        entry.target.classList.add('fade-out');
+                        // خروج از صفحه
                         entry.target.classList.remove('fade-in');
+                        entry.target.classList.add('fade-out');
                     }
                 });
             }, observerOptions);
 
-            // شروع نظارت روی تمام بخش‌ها
             sections.forEach(section => {
                 observer.observe(section);
             });
