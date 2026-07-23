@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>جیران | Jeyran Baklava</title>
-    <!-- فونت وزیرمتن برای بخش‌های عادی منو -->
+    <!-- فونت وزیرمتن -->
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -22,7 +22,7 @@
             --line-thickness: 0.5px;
         }
 
-        /* حالت روز (Light Mode) */
+        /* حالت روز */
         .light-mode {
             --bg-body: #f4efe9;
             --bg-card: #fffcf8;
@@ -46,6 +46,7 @@
             background-image: radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 40%);
             background-attachment: fixed;
             transition: background-color 0.5s ease, color 0.5s ease;
+            scroll-behavior: smooth;
         }
 
         .theme-switch-wrapper {
@@ -101,14 +102,12 @@
             position: relative;
         }
         
-        /* استایل کانتینر لوگو */
         .brand-logo-container {
             display: inline-block;
             width: 150px;
             margin-bottom: 15px;
             transition: all 0.5s ease;
         }
-        
         .brand-logo-svg {
             width: 100%;
             height: auto;
@@ -124,7 +123,6 @@
             font-weight: 300;
             transition: color 0.5s ease;
         }
-        
         .brand-header::after {
             content: '';
             width: 60px;
@@ -177,7 +175,7 @@
         .search-wrapper {
             position: relative;
             z-index: 5;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -229,6 +227,40 @@
         }
         .search-clear-btn.visible {
             display: block;
+        }
+
+        /* دکمه‌های میانبر (Quick Links) */
+        .quick-links-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: var(--line-thickness) solid rgba(212, 175, 55, 0.1);
+        }
+        .quick-link-btn {
+            background: rgba(212, 175, 55, 0.08);
+            border: var(--line-thickness) solid rgba(212, 175, 55, 0.15);
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-family: var(--font-main);
+            font-size: 0.85rem;
+            font-weight: 300;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+        .quick-link-btn:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: #0a0806;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px var(--gold-glow);
+        }
+        .light-mode .quick-link-btn:hover {
+            color: #0a0806;
         }
 
         .background-glow {
@@ -320,9 +352,6 @@
             white-space: nowrap;
         }
 
-        /* ===================================================
-           بخش لودینگ با استفاده از مسیرهای دقیق لوگو
-           =================================================== */
         #loading-container {
             display: flex;
             flex-direction: column;
@@ -331,15 +360,12 @@
             padding: 60px 0;
             gap: 20px;
         }
-        
-        /* این دقیقاً از روی لوگوی شما کپی شده است */
         .logo-loader-svg {
             width: 120px;
             height: auto;
             fill: var(--gold);
             animation: shimmerLogo 1.5s ease-in-out infinite alternate;
         }
-        
         @keyframes shimmerLogo {
             0% { 
                 filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.1)); 
@@ -352,7 +378,6 @@
                 transform: scale(1);
             }
         }
-        
         .loader-subtext {
             color: var(--text-muted);
             font-weight: 300;
@@ -388,7 +413,6 @@
         .footer-note a:hover { color: #fff; }
         .light-mode .footer-note a:hover { color: #000; }
 
-        /* کادر ثبت سفارش */
         .order-box {
             position: relative;
             z-index: 1;
@@ -451,28 +475,24 @@
             .search-wrapper input { font-size: 1rem; padding: 10px 0; }
             #back-to-top { width: 45px; height: 45px; bottom: 20px; right: 20px; }
             .random-tagline { font-size: 0.85rem; }
+            .quick-link-btn { font-size: 0.75rem; padding: 5px 10px; }
         }
     </style>
 </head>
 <body>
-    <!-- دکمه تغییر حالت روز/شب -->
     <div class="theme-switch-wrapper">
         <button class="theme-switch" id="theme-toggle" title="تغییر حالت روز/شب">
             <i class="fa-solid fa-moon"></i>
         </button>
     </div>
 
-    <!-- دکمه بازگشت به بالا -->
     <button id="back-to-top" title="بازگشت به بالا">
         <i class="fa-solid fa-arrow-up"></i>
     </button>
 
     <div class="app-container">
-        <!-- هدر شیشه‌ای -->
         <div class="header-wrapper">
             <div class="brand-header">
-                
-                <!-- لوگوی اصلی برند -->
                 <div class="brand-logo-container">
                     <svg class="brand-logo-svg" viewBox="0 0 187 83" xmlns="http://www.w3.org/2000/svg">
                         <path d="M121.658 66.0712C121.814 66.0713 122.22 66.3706 122.563 66.7442C122.876 67.0808 124.624 68.8743 126.435 70.7052C128.247 72.499 129.746 74.1062 129.808 74.2557C129.838 74.3698 128.277 76.4241 126.311 78.7399L122.72 83L120.971 81.1689C117.223 77.3198 117.41 77.32 114.6 80.7955C113.57 82.1405 112.696 83.0745 112.695 82.9253C112.695 82.7752 110.852 80.7575 108.573 78.4036L104.451 74.1434L108.042 70.1073C110.009 67.9027 111.79 66.0715 112.008 66.0712C112.227 66.0716 113.414 67.0808 114.631 68.3137C115.88 69.5463 116.941 70.5548 117.036 70.5558C117.161 70.5558 118.16 69.5469 119.316 68.3137C120.44 67.0807 121.501 66.0715 121.658 66.0712Z" />
@@ -483,9 +503,7 @@
                         <path d="M33.0948 36.5489C33.3448 36.5492 34.7502 37.7447 36.2177 39.202C37.6542 40.6594 39.309 42.3787 39.9024 43.014L40.9954 44.1351L39.9024 45.2561C39.309 45.8541 37.5604 47.76 35.9679 49.5163L33.0948 52.6554L29.2536 48.8437C27.1304 46.7514 25.3817 44.9205 25.3187 44.7705C25.2562 44.621 26.4743 43.1259 27.9732 41.4816C32.0327 37.0721 32.5327 36.5863 33.0948 36.5489Z" />
                     </svg>
                 </div>
-
                 <p>MENU</p>
-                
                 <div class="random-tagline-container">
                     <div id="random-tagline" class="random-tagline"></div>
                 </div>
@@ -495,7 +513,6 @@
         <div class="menu-box">
             <div class="background-glow" id="bg-glow"></div>
 
-            <!-- بخش لودینگ با لوگوی دقیق -->
             <div id="loading-container">
                 <svg class="logo-loader-svg" viewBox="0 0 187 83" xmlns="http://www.w3.org/2000/svg">
                     <path d="M121.658 66.0712C121.814 66.0713 122.22 66.3706 122.563 66.7442C122.876 67.0808 124.624 68.8743 126.435 70.7052C128.247 72.499 129.746 74.1062 129.808 74.2557C129.838 74.3698 128.277 76.4241 126.311 78.7399L122.72 83L120.971 81.1689C117.223 77.3198 117.41 77.32 114.6 80.7955C113.57 82.1405 112.696 83.0745 112.695 82.9253C112.695 82.7752 110.852 80.7575 108.573 78.4036L104.451 74.1434L108.042 70.1073C110.009 67.9027 111.79 66.0715 112.008 66.0712C112.227 66.0716 113.414 67.0808 114.631 68.3137C115.88 69.5463 116.941 70.5548 117.036 70.5558C117.161 70.5558 118.16 69.5469 119.316 68.3137C120.44 67.0807 121.501 66.0715 121.658 66.0712Z" />
@@ -510,7 +527,6 @@
             
             <div id="menu-content" style="display: none;"></div>
 
-            <!-- کادر ثبت سفارش -->
             <div class="order-box">
                 <i class="fa-solid fa-cart-shopping" style="color: var(--gold); margin-left: 8px;"></i>
                 برای ثبت سفارش به صندوق مراجعه فرمایید.
@@ -531,6 +547,7 @@
 
         let allData = {}; 
         let allRawItems = []; 
+        let categoryIds = []; // برای ذخیره شناسه‌های دسته‌بندی
 
         const taglines = [
             "جیران؛ جایی که عطر باقلو با طعم قهوه گره می‌خورد.",
@@ -698,11 +715,36 @@
                 return;
             }
 
+            // 1. ابتدا دکمه‌های میانبر را می‌سازیم
+            const quickLinksWrapper = document.createElement('div');
+            quickLinksWrapper.className = 'quick-links-wrapper';
+            
+            categories.forEach((cat) => {
+                const btn = document.createElement('button');
+                btn.className = 'quick-link-btn';
+                const iconClass = iconMap[cat] || 'fa-circle';
+                btn.innerHTML = `<i class="fa-solid ${iconClass}" style="margin-left:6px; font-size:0.8rem;"></i> ${cat}`;
+                // اسکرول به بخش مربوطه
+                const sectionId = `section-${cat.replace(/\s/g, '-')}`;
+                btn.onclick = () => {
+                    const targetSection = document.getElementById(sectionId);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                };
+                quickLinksWrapper.appendChild(btn);
+            });
+            container.appendChild(quickLinksWrapper);
+
+            // 2. سپس بخش‌های منو را می‌سازیم
             categories.forEach((cat) => {
                 const items = allData[cat];
                 
                 const section = document.createElement('div');
                 section.className = 'category-section';
+                // اختصاص شناسه برای اسکرول
+                const sectionId = `section-${cat.replace(/\s/g, '-')}`;
+                section.id = sectionId;
                 section.dataset.category = cat;
 
                 const title = document.createElement('div');
